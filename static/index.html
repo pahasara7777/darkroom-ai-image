@@ -260,3 +260,18 @@ input:disabled { opacity: .45; }
       </div>
     </details>
 
+    <div class="go">
+      <button type="submit" id="go">Generate</button>
+      <small>Ctrl + Enter in the prompt also works.</small>
+      <div class="vh" id="live" role="status" aria-live="polite"></div>
+    </div>
+  </form>
+</main>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const frame = $('#frame'), out = $('#out'), form = $('#form'), go = $('#go');
+const AR = { '1:1': 1, '3:4': .75, '4:3': 4 / 3, '9:16': 9 / 16, '16:9': 16 / 9 };
+const QNAME = { 20: 'Draft', 28: 'Standard', 40: 'Fine' };
+const KEY = 'darkroom.history.v1', MAX = 12;
+let busy = false, objectUrl = null, history = load();
