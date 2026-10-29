@@ -183,3 +183,18 @@ input:disabled { opacity: .45; }
         <div class="layer empty">
           <h1>Describe a picture.</h1>
           <p>It develops right here.</p>
+        </div>
+        <div class="layer busy" aria-hidden="true">
+          <strong>Developing</strong>
+          <span id="timer">0s</span>
+        </div>
+        <div class="layer error" id="err" role="alert"></div>
+        <img id="out" alt="">
+      </div>
+    </div>
+    <div class="bar" id="bar" hidden>
+      <div class="meta" id="meta"></div>
+      <a class="btn" id="dl" download="darkroom.png" href="#">Download</a>
+      <p class="note" id="note" hidden>Preview of an earlier image. Generate with the same seed to get the full size.</p>
+    </div>
+    <div class="roll" id="roll">
