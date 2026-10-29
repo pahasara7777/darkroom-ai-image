@@ -59,3 +59,19 @@ main { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 48px; pa
   background: var(--tray); border: 1px solid var(--edge); border-radius: 4px;
   display: grid; place-items: center; transition: aspect-ratio .3s ease; isolation: isolate;
 }
+.frame > * { grid-area: 1 / 1; }
+.frame .layer { display: none; padding: 8% ; text-align: left; width: 100%; }
+.frame[data-state="empty"] .empty,
+.frame[data-state="busy"] .busy,
+.frame[data-state="error"] .error { display: block; }
+.frame img { width: 100%; height: 100%; object-fit: cover; display: none; }
+.frame[data-state="ready"] img { display: block; }
+
+.empty h1 { margin: 0; font-weight: 300; font-size: clamp(2.25rem, 5.5vw, 4.5rem); line-height: 1.02; letter-spacing: -0.025em; text-wrap: balance; }
+.empty p { margin: 16px 0 0; color: var(--stone); font-size: 1.0625rem; }
+
+.frame .busy { text-align: center; }
+.busy::before { content: ""; position: absolute; inset: 0; z-index: -1;
+  background: radial-gradient(ellipse at 50% 100%, rgb(242 163 58 / .28), transparent 65%), radial-gradient(ellipse at 50% 0%, rgb(242 163 58 / .12), transparent 60%);
+  animation: safelight 2.6s ease-in-out infinite; }
+.busy strong { display: block; font-size: 1.5rem; font-weight: 300; letter-spacing: -0.01em; }
