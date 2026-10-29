@@ -44,3 +44,18 @@ header { display: flex; align-items: center; justify-content: space-between; pad
 .conn { display: flex; align-items: center; gap: 8px; font-size: .875rem; color: var(--stone); }
 .conn::before { content: ""; width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--stone); }
 .conn[data-on="true"]::before { background: var(--paper); border-color: var(--paper); }
+
+/* layout */
+main { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 48px; padding: 0 32px 32px; align-items: start; }
+.stage { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.stage-area { display: grid; place-items: center; min-height: 340px; }
+
+/* the frame: empty, busy, ready, error */
+.frame {
+  --ar: 1;
+  position: relative; aspect-ratio: var(--ar); overflow: hidden;
+  width: min(100%, calc((100dvh - 330px) * var(--ar)));
+  min-width: min(100%, 280px);
+  background: var(--tray); border: 1px solid var(--edge); border-radius: 4px;
+  display: grid; place-items: center; transition: aspect-ratio .3s ease; isolation: isolate;
+}
