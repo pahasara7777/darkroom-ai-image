@@ -383,3 +383,19 @@ function render(current) {
     if (h.seed === current) b.setAttribute('aria-current', 'true');
     const im = document.createElement('img'); im.src = h.img; im.alt = ''; b.append(im);
     b.addEventListener('click', () => restore(i)); strip.append(b);
+  });
+}
+function restore(i) {
+  const h = history[i];
+  $('#prompt').value = h.prompt; $('#neg').value = h.negative || '';
+  setRadio('shape', h.shape); setRadio('quality', h.steps);
+  $('#style').value = h.style; $('#styleOut').textContent = Number(h.style).toFixed(1);
+  $('#rand').checked = false; $('#seed').disabled = false; $('#seed').value = h.seed;
+  setShape(h.shape); show(h.img, h, true); render(h.seed);
+}
+$('#clear').addEventListener('click', () => { history = []; save(); render(); });
+
+render(); setShape(val('shape'));
+</script>
+</body>
+</html>
