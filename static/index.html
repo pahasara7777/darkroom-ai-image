@@ -13,3 +13,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&display=swap" rel="stylesheet">
 <style>
 :root {
+  --ink: #131211;        /* page */
+  --tray: #1b1917;       /* surfaces */
+  --edge: #2e2a26;       /* hairlines */
+  --paper: #ece6db;      /* text */
+  --stone: #9a9186;      /* secondary text */
+  --safelight: #f2a33a;  /* the one accent */
+  --danger: #ff8f7a;
+  --font: "Bricolage Grotesque", system-ui, sans-serif;
+  color-scheme: dark;
+  accent-color: var(--safelight);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--ink); }
+body {
+  margin: 0; min-height: 100dvh; display: grid; grid-template-rows: auto 1fr;
