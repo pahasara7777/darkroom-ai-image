@@ -244,3 +244,19 @@ input:disabled { opacity: .45; }
       <span class="hint">How strongly your trained look is applied. 0 is the plain base model.</span>
     </div>
 
+    <details>
+      <summary>More options</summary>
+      <div class="field">
+        <label for="neg">Leave out</label>
+        <input type="text" id="neg" maxlength="500" placeholder="Using sensible defaults">
+      </div>
+      <div class="field">
+        <label for="seed">Seed</label>
+        <div class="seedrow">
+          <input type="number" id="seed" min="0" max="4294967295" step="1" value="1" disabled>
+          <label><input type="checkbox" id="rand" checked>Random</label>
+        </div>
+        <span class="hint">Same seed and settings give the same picture.</span>
+      </div>
+    </details>
+
