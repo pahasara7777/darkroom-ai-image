@@ -23,3 +23,8 @@ class Req(BaseModel):
     negative: str = Field("", max_length=500)
     shape: Literal["1:1", "3:4", "4:3", "9:16", "16:9"] = "1:1"
     steps: int = Field(28, ge=10, le=50)
+    style: float = Field(1.0, ge=0, le=1.5)
+    seed: int = Field(0, ge=0, lt=2**32)
+
+app = FastAPI()
+
