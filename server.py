@@ -38,3 +38,8 @@ def generate(r: Req):
     try:
         with gpu:
             img = pipe(prompt=r.prompt, negative_prompt=r.negative.strip() or NEG,
+                       num_inference_steps=r.steps, guidance_scale=6.5, width=w, height=h,
+                       cross_attention_kwargs={"scale": r.style},
+                       generator=torch.Generator("cuda").manual_seed(r.seed)).images[0]
+    except torch.cuda.OutOfMemoryError:
+        torch.cuda.empty_cache()
