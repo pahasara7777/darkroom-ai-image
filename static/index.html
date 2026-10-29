@@ -321,3 +321,19 @@ form.addEventListener('submit', async (e) => {
     : Math.min(2 ** 32 - 1, Math.max(0, parseInt($('#seed').value, 10) || 0));
   if (!$('#rand').checked) $('#seed').value = seed;
   const s = { prompt, negative: $('#neg').value.trim(), shape: val('shape'), steps: +val('quality'), style: +$('#style').value, seed };
+
+  busy = true; go.disabled = true; go.textContent = 'Developing…';
+  $('#live').textContent = 'Generating your image.';
+  setShape(s.shape); setState('busy'); $('#bar').hidden = true;
+  const t0 = performance.now();
+  const tick = setInterval(() => { $('#timer').textContent = Math.round((performance.now() - t0) / 1000) + 's'; }, 500);
+  $('#timer').textContent = '0s';
+  try {
+    const r = await fetch('/api/generate', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(s) });
+    if (!r.ok) {
+      let msg = 'Something went wrong on the server. Try again.';
+      try { const j = await r.json(); if (typeof j.detail === 'string') msg = j.detail; else if (j.detail) msg = 'One of the settings was not accepted. Check them and try again.'; } catch {}
+      throw new Error(msg);
+    }
+    const blob = await r.blob();
+    show(URL.createObjectURL(blob), s, false);
