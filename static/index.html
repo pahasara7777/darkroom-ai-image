@@ -368,3 +368,18 @@ async function preview(blob) {
   const bmp = await createImageBitmap(blob);
   const k = Math.min(1, 768 / Math.max(bmp.width, bmp.height));
   const c = document.createElement('canvas'); c.width = Math.round(bmp.width * k); c.height = Math.round(bmp.height * k);
+  c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+  return c.toDataURL('image/jpeg', .85);
+}
+async function addHistory(blob, s) {
+  try { history.unshift({ ...s, img: await preview(blob) }); history = history.slice(0, MAX); save(); render(s.seed); } catch {}
+}
+function render(current) {
+  const strip = $('#strip'); strip.innerHTML = '';
+  $('#roll').classList.toggle('has', history.length > 0);
+  history.forEach((h, i) => {
+    const b = document.createElement('button'); b.type = 'button';
+    b.setAttribute('aria-label', 'Restore: ' + h.prompt.slice(0, 80));
+    if (h.seed === current) b.setAttribute('aria-current', 'true');
+    const im = document.createElement('img'); im.src = h.img; im.alt = ''; b.append(im);
+    b.addEventListener('click', () => restore(i)); strip.append(b);
