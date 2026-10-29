@@ -75,3 +75,18 @@ main { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 48px; pa
   background: radial-gradient(ellipse at 50% 100%, rgb(242 163 58 / .28), transparent 65%), radial-gradient(ellipse at 50% 0%, rgb(242 163 58 / .12), transparent 60%);
   animation: safelight 2.6s ease-in-out infinite; }
 .busy strong { display: block; font-size: 1.5rem; font-weight: 300; letter-spacing: -0.01em; }
+.busy span { color: var(--stone); font-variant-numeric: tabular-nums; }
+@keyframes safelight { 0%, 100% { opacity: .45; } 50% { opacity: 1; } }
+
+.error { color: var(--danger); max-width: 34ch; margin-inline: auto; }
+.error strong { display: block; color: var(--paper); font-size: 1.25rem; font-weight: 600; margin-bottom: 6px; }
+
+/* the one moment: the picture develops */
+.frame img.develop { animation: develop 2.4s cubic-bezier(.2, .7, .2, 1) both; }
+@keyframes develop {
+  from { filter: brightness(0) blur(30px) saturate(.3); }
+  55%  { filter: brightness(.5) blur(10px) saturate(.7); }
+  to   { filter: none; }
+}
+
+.bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px; min-height: 44px; font-size: .875rem; color: var(--stone); }
