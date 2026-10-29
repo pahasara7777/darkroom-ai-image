@@ -306,3 +306,18 @@ $('#chips').addEventListener('click', (e) => {
   const p = e.target.closest('button')?.dataset.p; if (!p) return;
   $('#prompt').value = p; $('#prompt').focus();
 });
+$('#prompt').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); form.requestSubmit(); }
+});
+
+/* generate */
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (busy) return;
+  const prompt = $('#prompt').value.trim();
+  if (!prompt) { showError('Add a prompt', 'Describe what you want to see, then generate.'); $('#prompt').focus(); return; }
+  const seed = $('#rand').checked
+    ? Math.floor(Math.random() * 2 ** 32)
+    : Math.min(2 ** 32 - 1, Math.max(0, parseInt($('#seed').value, 10) || 0));
+  if (!$('#rand').checked) $('#seed').value = seed;
+  const s = { prompt, negative: $('#neg').value.trim(), shape: val('shape'), steps: +val('quality'), style: +$('#style').value, seed };
