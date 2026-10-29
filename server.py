@@ -28,3 +28,8 @@ class Req(BaseModel):
 
 app = FastAPI()
 
+@app.get("/api/health")
+def health():
+    return {"ok": True}
+
+@app.post("/api/generate")
