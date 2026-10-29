@@ -275,3 +275,19 @@ const AR = { '1:1': 1, '3:4': .75, '4:3': 4 / 3, '9:16': 9 / 16, '16:9': 16 / 9 
 const QNAME = { 20: 'Draft', 28: 'Standard', 40: 'Fine' };
 const KEY = 'darkroom.history.v1', MAX = 12;
 let busy = false, objectUrl = null, history = load();
+
+function load() { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch { return []; } }
+function save() {
+  for (let i = 0; i < 6; i++) {            // storage is limited: drop the oldest until it fits
+    try { localStorage.setItem(KEY, JSON.stringify(history)); return; } catch { history.pop(); }
+  }
+}
+const val = (name) => form.querySelector(`input[name="${name}"]:checked`).value;
+const setRadio = (name, v) => { const el = form.querySelector(`input[name="${name}"][value="${v}"]`); if (el) el.checked = true; };
+
+function setShape(shape) { frame.style.setProperty('--ar', AR[shape] || 1); }
+function setState(s) { frame.dataset.state = s; }
+function showError(title, text) {
+  $('#err').innerHTML = '';
+  const b = document.createElement('strong'); b.textContent = title;
+  $('#err').append(b, text); setState('error');
