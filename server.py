@@ -18,3 +18,8 @@ pipe = StableDiffusionXLPipeline.from_pretrained(
 pipe.load_lora_weights(os.path.dirname(LORA), weight_name=os.path.basename(LORA))
 gpu = threading.Lock()  # one image at a time; other requests wait their turn
 
+class Req(BaseModel):
+    prompt: str = Field(min_length=1, max_length=1000)
+    negative: str = Field("", max_length=500)
+    shape: Literal["1:1", "3:4", "4:3", "9:16", "16:9"] = "1:1"
+    steps: int = Field(28, ge=10, le=50)
