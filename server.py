@@ -33,3 +33,8 @@ def health():
     return {"ok": True}
 
 @app.post("/api/generate")
+def generate(r: Req):
+    w, h = SIZES[r.shape]
+    try:
+        with gpu:
+            img = pipe(prompt=r.prompt, negative_prompt=r.negative.strip() or NEG,
