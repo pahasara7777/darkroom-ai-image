@@ -352,3 +352,19 @@ form.addEventListener('submit', async (e) => {
 function show(url, s, isPreview) {
   if (objectUrl) URL.revokeObjectURL(objectUrl);
   objectUrl = isPreview ? null : url;
+  out.classList.remove('develop'); void out.offsetWidth;
+  out.alt = s.prompt; out.src = url; setState('ready');
+  if (!isPreview) out.classList.add('develop');
+  const m = $('#meta'); m.innerHTML = '';
+  for (const [k, v] of [['Seed', s.seed], ['Quality', QNAME[s.steps] || s.steps], ['Shape', s.shape]]) {
+    const sp = document.createElement('span'); sp.append(k + ' '); const b = document.createElement('b'); b.textContent = v; sp.append(b); m.append(sp);
+  }
+  const dl = $('#dl'); dl.href = url; dl.download = `darkroom-${s.seed}.${isPreview ? 'jpg' : 'png'}`;
+  $('#note').hidden = !isPreview; $('#bar').hidden = false;
+}
+
+/* history: a small preview + the settings, so any frame can be recreated */
+async function preview(blob) {
+  const bmp = await createImageBitmap(blob);
+  const k = Math.min(1, 768 / Math.max(bmp.width, bmp.height));
+  const c = document.createElement('canvas'); c.width = Math.round(bmp.width * k); c.height = Math.round(bmp.height * k);
