@@ -198,3 +198,18 @@ input:disabled { opacity: .45; }
       <p class="note" id="note" hidden>Preview of an earlier image. Generate with the same seed to get the full size.</p>
     </div>
     <div class="roll" id="roll">
+      <div class="roll-head"><span>Recent</span><button type="button" id="clear">Clear history</button></div>
+      <div class="strip" id="strip"></div>
+    </div>
+  </section>
+
+  <form class="panel" id="form" autocomplete="off">
+    <div class="field">
+      <label for="prompt">Prompt</label>
+      <textarea id="prompt" name="prompt" maxlength="1000" placeholder="A lighthouse on a cliff at dusk, waves breaking below, soft film grain" required></textarea>
+      <div class="chips" id="chips">
+        <button type="button" data-p="A fisherman mending his nets at golden hour, 35mm film, shallow depth of field">Fisherman</button>
+        <button type="button" data-p="A cozy wooden cabin in a snowy pine forest at dusk, warm light in the windows, smoke from the chimney">Cabin in snow</button>
+        <button type="button" data-p="A red fox in a knitted scarf sitting in a field of flowers, children's book illustration, watercolor">Fox, watercolor</button>
+        <button type="button" data-p="A neon-lit city street at night in the rain, reflections on wet asphalt, cinematic wide shot">Neon street</button>
+      </div>
