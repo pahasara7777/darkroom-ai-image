@@ -13,3 +13,8 @@ SIZES = {"1:1": (1024, 1024), "3:4": (896, 1152), "4:3": (1152, 896), "9:16": (7
 
 vae = AutoencoderKL.from_pretrained("madebyollin/sdxl-vae-fp16-fix", torch_dtype=torch.float16)
 pipe = StableDiffusionXLPipeline.from_pretrained(
+    "stabilityai/stable-diffusion-xl-base-1.0", vae=vae, torch_dtype=torch.float16, variant="fp16"
+).to("cuda")  # needs an NVIDIA GPU
+pipe.load_lora_weights(os.path.dirname(LORA), weight_name=os.path.basename(LORA))
+gpu = threading.Lock()  # one image at a time; other requests wait their turn
+
