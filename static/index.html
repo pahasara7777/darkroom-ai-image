@@ -105,3 +105,19 @@ main { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 48px; pa
 .roll-head button { background: none; border: 0; color: var(--stone); cursor: pointer; min-height: 44px; padding: 0 4px; text-decoration: underline; text-underline-offset: 3px; }
 .strip { display: flex; gap: 10px; overflow-x: auto; padding: 14px 0; position: relative; scrollbar-color: var(--edge) transparent; scrollbar-width: thin;
   background:
+    repeating-linear-gradient(90deg, var(--edge) 0 7px, transparent 7px 14px) top / 100% 3px no-repeat,
+    repeating-linear-gradient(90deg, var(--edge) 0 7px, transparent 7px 14px) bottom / 100% 3px no-repeat; }
+.strip button { flex: none; padding: 0; border: 1px solid var(--edge); border-radius: 3px; background: var(--tray); cursor: pointer; overflow: hidden; height: 88px; }
+.strip button[aria-current="true"] { border-color: var(--safelight); }
+.strip img { height: 100%; width: auto; display: block; }
+
+/* composer */
+.panel { display: flex; flex-direction: column; gap: 24px; }
+.field { display: flex; flex-direction: column; gap: 8px; border: 0; padding: 0; margin: 0; min-width: 0; }
+.field > label, .field > legend { padding: 0; font-size: .9375rem; font-weight: 600; }
+.hint { font-size: .8125rem; color: var(--stone); font-weight: 400; }
+textarea, input[type="number"], input[type="text"] {
+  width: 100%; background: var(--tray); border: 1px solid var(--edge); border-radius: 6px; padding: 12px 14px; line-height: 1.45;
+}
+textarea { field-sizing: content; min-block-size: 8rem; max-block-size: 16rem; resize: none; }
+textarea::placeholder, input::placeholder { color: #6f675d; }
