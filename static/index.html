@@ -337,3 +337,18 @@ form.addEventListener('submit', async (e) => {
     }
     const blob = await r.blob();
     show(URL.createObjectURL(blob), s, false);
+    $('#live').textContent = `Done in ${Math.round((performance.now() - t0) / 1000)} seconds.`;
+    addHistory(blob, s);
+  } catch (err) {
+    const offline = err instanceof TypeError;
+    showError(offline ? 'Can’t reach the generator' : 'Couldn’t generate that',
+      offline ? 'Check that the server is running, then try again.' : err.message);
+    $('#live').textContent = 'Generation failed.';
+  } finally {
+    clearInterval(tick); busy = false; go.disabled = false; go.textContent = 'Generate';
+  }
+});
+
+function show(url, s, isPreview) {
+  if (objectUrl) URL.revokeObjectURL(objectUrl);
+  objectUrl = isPreview ? null : url;
