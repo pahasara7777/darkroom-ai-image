@@ -167,3 +167,19 @@ input:disabled { opacity: .45; }
   .busy::before { animation: none; opacity: .8; }
   .frame { transition: none; }
 }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="mark"><i></i>Darkroom</div>
+  <div class="conn" id="conn" data-on="false">Connecting</div>
+</header>
+
+<main>
+  <section class="stage" aria-label="Result">
+    <div class="stage-area">
+      <div class="frame" id="frame" data-state="empty">
+        <div class="layer empty">
+          <h1>Describe a picture.</h1>
+          <p>It develops right here.</p>
