@@ -291,3 +291,18 @@ function showError(title, text) {
   $('#err').innerHTML = '';
   const b = document.createElement('strong'); b.textContent = title;
   $('#err').append(b, text); setState('error');
+}
+
+/* connection status */
+fetch('/api/health').then((r) => r.ok).catch(() => false).then((ok) => {
+  const c = $('#conn'); c.dataset.on = ok; c.textContent = ok ? 'Ready' : 'Offline';
+});
+
+/* controls */
+form.addEventListener('change', (e) => { if (e.target.name === 'shape') setShape(e.target.value); });
+$('#style').addEventListener('input', (e) => { $('#styleOut').textContent = Number(e.target.value).toFixed(1); });
+$('#rand').addEventListener('change', (e) => { $('#seed').disabled = e.target.checked; });
+$('#chips').addEventListener('click', (e) => {
+  const p = e.target.closest('button')?.dataset.p; if (!p) return;
+  $('#prompt').value = p; $('#prompt').focus();
+});
