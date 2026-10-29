@@ -90,3 +90,18 @@ main { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 48px; pa
 }
 
 .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px; min-height: 44px; font-size: .875rem; color: var(--stone); }
+.bar[hidden] { display: none; }
+.meta { display: flex; flex-wrap: wrap; gap: 4px 20px; }
+.meta b { color: var(--paper); font-weight: 500; }
+.note { flex-basis: 100%; margin: 0; }
+.btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; background: transparent; border: 1px solid var(--edge); border-radius: 6px; cursor: pointer; text-decoration: none; color: var(--paper); }
+.btn:hover { border-color: var(--stone); }
+.btn[hidden] { display: none; }
+
+/* filmstrip */
+.roll { display: none; }
+.roll.has { display: block; }
+.roll-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; font-size: .875rem; color: var(--stone); }
+.roll-head button { background: none; border: 0; color: var(--stone); cursor: pointer; min-height: 44px; padding: 0 4px; text-decoration: underline; text-underline-offset: 3px; }
+.strip { display: flex; gap: 10px; overflow-x: auto; padding: 14px 0; position: relative; scrollbar-color: var(--edge) transparent; scrollbar-width: thin;
+  background:
