@@ -43,3 +43,9 @@ def generate(r: Req):
                        generator=torch.Generator("cuda").manual_seed(r.seed)).images[0]
     except torch.cuda.OutOfMemoryError:
         torch.cuda.empty_cache()
+        raise HTTPException(503, "The GPU ran out of memory. Try Draft quality or a smaller shape.")
+    buf = io.BytesIO()
+    img.save(buf, "PNG")
+    return Response(buf.getvalue(), media_type="image/png")
+
+app.mount("/", StaticFiles(directory=os.path.join(HERE, "static"), html=True), name="static")
